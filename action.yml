@@ -1,0 +1,50 @@
+name: 'Betar PR Review'
+description: 'Pay-per-review GitHub PR reviewer via the Betar agent marketplace'
+branding:
+  icon: 'code'
+  color: 'blue'
+
+inputs:
+  ethereum-private-key:
+    description: 'Hex-encoded Ethereum private key (funded with USDC on Base Sepolia)'
+    required: true
+  bootstrap-peers:
+    description: 'Comma-separated multiaddrs of Betar nodes (optional — uses default DHT bootstrap if empty)'
+    required: false
+    default: ''
+  agent-id:
+    description: 'Reviewer agent ID (skips discovery if set)'
+    required: false
+    default: ''
+  agent-name:
+    description: 'Agent name for discovery'
+    required: false
+    default: 'pr-reviewer'
+  go-version:
+    description: 'Go version to use'
+    required: false
+    default: '1.24'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: ${{ inputs.go-version }}
+        cache-dependency-path: ${{ github.action_path }}/go.sum
+
+    - name: Build trigger
+      shell: bash
+      run: cd "${{ github.action_path }}" && go build -o "$RUNNER_TEMP/betar-trigger" ./cmd/trigger/
+
+    - name: Run review via Betar
+      shell: bash
+      env:
+        PR_REF: ${{ github.repository }}#${{ github.event.issue.number }}
+        ETHEREUM_PRIVATE_KEY: ${{ inputs.ethereum-private-key }}
+        BOOTSTRAP_PEERS: ${{ inputs.bootstrap-peers }}
+        REVIEWER_AGENT_ID: ${{ inputs.agent-id }}
+        REVIEWER_AGENT_NAME: ${{ inputs.agent-name }}
+        BETAR_DATA_DIR: ${{ runner.temp }}/betar-trigger-data
+      run: "$RUNNER_TEMP/betar-trigger"

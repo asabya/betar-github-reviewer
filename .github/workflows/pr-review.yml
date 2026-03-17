@@ -1,0 +1,22 @@
+# Example workflow for buyers to copy into their repos.
+# This is all a buyer needs — one step.
+name: Betar PR Review
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  review:
+    if: |
+      github.event.issue.pull_request &&
+      contains(github.event.comment.body, '@betar-pr-bot')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: asabya/betar-github-reviewer@main
+        with:
+          ethereum-private-key: ${{ secrets.BETAR_ETH_PRIVATE_KEY }}
+          bootstrap-peers: ${{ secrets.BETAR_BOOTSTRAP_PEERS }}
+          agent-id: ${{ secrets.BETAR_REVIEWER_AGENT_ID }}

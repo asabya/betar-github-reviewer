@@ -15,7 +15,7 @@ jobs:
     timeout-minutes: 10
 
     steps:
-      - uses: asabya/betar-github-reviewer@main
+      - uses: asabya/betar-github-reviewer@master
         with:
           ethereum-private-key: ${{ secrets.BETAR_ETH_PRIVATE_KEY }}
           bootstrap-peers: ${{ secrets.BETAR_BOOTSTRAP_PEERS }}

@@ -23,8 +23,8 @@ github.com/VictoriaMetrics/fastcache v1.13.0 h1:AW4mheMR5Vd9FkAPUv+NH6Nhw+fmbTMG
 github.com/VictoriaMetrics/fastcache v1.13.0/go.mod h1:hHXhl4DA2fTL2HTZDJFXWgW0LNjo6B+4aj2Wmng3TjU=
 github.com/alecthomas/units v0.0.0-20240927000941-0f3dac36c52b h1:mimo19zliBX/vSQ6PWWSL9lK8qwHozUj03+zLoEB8O0=
 github.com/alecthomas/units v0.0.0-20240927000941-0f3dac36c52b/go.mod h1:fvzegU4vN3H1qMT+8wDmzjAcDONcgo2/SZ/TyfdUOFs=
-github.com/asabya/betar v0.0.0-20260317104446-3b61ad4a9b4d h1:BpzefxNpieb2VvV7A1at11xjO8Jk34UoAHgkj0qsDhY=
-github.com/asabya/betar v0.0.0-20260317104446-3b61ad4a9b4d/go.mod h1:NzrE4b9Nbto70QGu8a3M9pXMdVDfIkR1i3rc4gMHCr4=
+github.com/asabya/betar v0.0.0-20260317112113-0d2d2b36816d h1:z1px1kdBUwAgG7K7PFyFEjp9NyKxLmEsHkf1Cgd56LU=
+github.com/asabya/betar v0.0.0-20260317112113-0d2d2b36816d/go.mod h1:NzrE4b9Nbto70QGu8a3M9pXMdVDfIkR1i3rc4gMHCr4=
 github.com/benbjohnson/clock v1.3.5 h1:VvXlSJBzZpA/zum6Sj74hxwYI2DIxRWuNIoXAzHZz5o=
 github.com/benbjohnson/clock v1.3.5/go.mod h1:J11/hYXuz8f4ySSvYwY0FKfm+ezbsZBKZxNJlLklBHA=
 github.com/beorn7/perks v1.0.1 h1:VlbKKnNfV8bJzeqoa4cOKqO6bYr3WgKZxO8Z16+hsOM=

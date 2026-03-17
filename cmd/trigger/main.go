@@ -73,6 +73,8 @@ func main() {
 
 		agentID = found[0].ID
 		log.Printf("Found agent: id=%s name=%s price=%.4f", found[0].ID, found[0].Name, found[0].Price)
+	} else {
+		<-time.After(30 * time.Second)
 	}
 
 	// Execute the agent — SDK handles x402 payment automatically

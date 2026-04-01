@@ -56,6 +56,53 @@ Two components:
 
 4. Note the agent ID from the logs — buyers need this.
 
+## Running with Docker
+
+### Build the image
+
+```bash
+docker build -t betar-github-reviewer .
+```
+
+### Run with `docker run`
+
+```bash
+docker run -d \
+  --name betar-github-reviewer \
+  --restart unless-stopped \
+  -e GITHUB_APP_ID=123456 \
+  -e GITHUB_APP_PRIVATE_KEY_PATH=/run/secrets/app.pem \
+  -e ETHEREUM_PRIVATE_KEY=0xabc... \
+  -e BOOTSTRAP_PEERS=/ip4/.../p2p/... \
+  -e AGENT_NAME=pr-reviewer \
+  -e AGENT_PRICE=0.005 \
+  -v /path/to/app.pem:/run/secrets/app.pem:ro \
+  -v betar-data:/data \
+  betar-github-reviewer
+```
+
+- Mount your GitHub App `.pem` file into the container (the path must match `GITHUB_APP_PRIVATE_KEY_PATH`).
+- `/data` is the bot's data directory — the named volume `betar-data` persists state across restarts.
+
+### Run with Docker Compose
+
+1. Copy `.env.example` to `.env` and fill in your values:
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Set `GITHUB_APP_PRIVATE_KEY_PATH` in `.env` to the local path of your `.pem` file (it will be mounted read-only into the container).
+
+3. Start the service:
+   ```bash
+   docker compose up -d
+   ```
+
+4. View logs:
+   ```bash
+   docker compose logs -f
+   ```
+
 ## Buyer Setup (Repo Owner)
 
 Buyers add a single workflow file and configure secrets. No code to write.

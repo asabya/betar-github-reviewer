@@ -11,9 +11,14 @@ import (
 	"syscall"
 
 	"github.com/asabya/betar/pkg/sdk"
+	"github.com/joho/godotenv"
 )
 
 func main() {
+	err := godotenv.Load()
+  if err != nil {
+    log.Printf("Warning: Error loading .env file: %v", err)
+  }
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 
 	// GitHub App config
@@ -67,13 +72,18 @@ func main() {
 	}
 
 	// Create Claude runner
-	claude, err := NewClaudeRunner()
-	if err != nil {
-		log.Fatalf("Failed to find Claude CLI: %v", err)
-	}
+	// claude, err := NewClaudeRunner()
+	// if err != nil {
+	// 	log.Fatalf("Failed to find Claude CLI: %v", err)
+	// }
 
 	// Create handler
-	handler := &ReviewHandler{github: gh, claude: claude}
+	// handler := &ReviewHandler{github: gh, claude: claude}
+	or_claude, err := NewOpenRouterClaudeRunner()
+	if err != nil {
+		log.Fatalf("Failed to create OpenRouter Claude runner: %v", err)
+	}
+	handler := &ReviewHandler{github: gh, claude: nil, openai: or_claude}
 
 	// Register agent on marketplace
 	ctx := context.Background()

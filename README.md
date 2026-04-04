@@ -56,6 +56,16 @@ Two components:
 
 4. Note the agent ID from the logs — buyers need this.
 
+5. Docker deployment
+
+### Build, tag and push docker images to google artifact registry
+
+```
+docker build --platform linux/amd64 -t betar-github-reviewer .
+docker tag betar-github-reviewer us-central1-docker.pkg.dev/mathcody/registry/betar-github-reviewer
+docker push us-central1-docker.pkg.dev/mathcody/registry/betar-github-reviewer
+```
+
 ## Running with Docker
 
 ### Build the image

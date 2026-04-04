@@ -13,6 +13,7 @@ const maxDiffSize = 100 * 1024 // 100KB
 type ReviewHandler struct {
 	github *GitHubClient
 	claude *ClaudeRunner
+	openai *OpenRouterClaudeRunner
 }
 
 func (h *ReviewHandler) Handle(ctx context.Context, agentID, input string) (string, error) {
@@ -42,7 +43,8 @@ func (h *ReviewHandler) Handle(ctx context.Context, agentID, input string) (stri
 	prompt := buildReviewPrompt(owner, repo, number, info, diff, truncated)
 
 	log.Printf("Running Claude CLI for review...")
-	output, err := h.claude.Run(ctx, prompt)
+	output, err := h.openai.Run(ctx, prompt)
+	// output, err := h.claude.Run(ctx, prompt)
 	if err != nil {
 		return "", fmt.Errorf("claude review: %w", err)
 	}

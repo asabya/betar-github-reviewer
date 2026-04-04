@@ -2,7 +2,7 @@ module github.com/asabya/betar-github-reviewer
 
 go 1.25.1
 
-require github.com/asabya/betar v0.0.0-20260317112113-0d2d2b36816d
+require github.com/asabya/betar v0.1.1-0.20260403042340-793ca029c089
 
 require (
 	cloud.google.com/go v0.123.0 // indirect

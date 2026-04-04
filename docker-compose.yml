@@ -1,0 +1,18 @@
+services:
+  betar-github-reviewer:
+    build: .
+    container_name: betar-github-reviewer
+    restart: unless-stopped
+    environment:
+      ETHEREUM_PRIVATE_KEY: ${ETHEREUM_PRIVATE_KEY}
+      BOOTSTRAP_PEERS: ${BOOTSTRAP_PEERS}
+      GITHUB_APP_ID: ${GITHUB_APP_ID}
+      GITHUB_APP_PRIVATE_KEY_PATH: /run/secrets/app.pem
+      AGENT_NAME: ${AGENT_NAME:-pr-reviewer}
+      AGENT_PRICE: ${AGENT_PRICE:-0.005}
+    volumes:
+      - ${GITHUB_APP_PRIVATE_KEY_PATH:-./app.pem}:/run/secrets/app.pem:ro
+      - betar-data:/data
+
+volumes:
+  betar-data:
